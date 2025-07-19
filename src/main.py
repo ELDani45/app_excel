@@ -1,6 +1,6 @@
 import flet as ft
 from el_club import contenido_el_club
-
+from Futbol import contenido_el_futbol
 
 def main(page: ft.Page):
    
@@ -17,6 +17,12 @@ def main(page: ft.Page):
             contenido_el_club()  
         )
         page.update()
+    def mostrar_futbol():
+        page.controls.clear()
+        page.add(encabezado,
+                 contenido_el_futbol()         
+                )
+
 
     # --- Función que maneja los clics en los botones del menú ---
     def on_nav_click(e):
@@ -24,6 +30,8 @@ def main(page: ft.Page):
             mostrar_inicio()
         elif e.control.text == "El Club":
             mostrar_el_club()
+        elif e.control.text == "Fútbol":
+            mostrar_futbol()
         else:
             # Muestra un mensaje temporal para los otros botones
             page.snack_bar = ft.SnackBar(ft.Text(f"Has hecho clic en: {e.control.text}"))
@@ -40,14 +48,14 @@ def main(page: ft.Page):
     imgFacebook = ft.Image(src="assets/facebook.png", width=30, height=30)
     imgInstagram = ft.Image(src="assets/instagram.png", width=30, height=30)
 
-    # --- Menú de navegación con botones interactivos ---
+    # --- Menú de navegación ---
     textos = ft.Row(
         controls=[
-            ft.TextButton("Inicio", on_click=on_nav_click),
-            ft.TextButton("Comunicaciones", on_click=on_nav_click),
-            ft.TextButton("El Club", on_click=on_nav_click),
-            ft.TextButton("Fútbol", on_click=on_nav_click),
-            ft.TextButton("Academia", on_click=on_nav_click),
+            ft.FilledButton("Inicio", on_click=on_nav_click, animate_size=20, icon_color="white", bgcolor="#038345"),
+            ft.FilledButton("Comunicaciones", on_click=on_nav_click, animate_size=20, icon_color="white", bgcolor="#038345"),
+            ft.FilledButton("El Club", on_click=on_nav_click, animate_size=20, icon_color="white", bgcolor="#038345"),
+            ft.FilledButton("Fútbol", on_click=on_nav_click, animate_size=20, icon_color="white", bgcolor="#038345"),
+            ft.FilledButton("Academia", on_click=on_nav_click, animate_size=20, icon_color="white", bgcolor="#038345"),
             imgTwitter, imgInstagram, imgFacebook
         ],
         spacing=25,
@@ -56,7 +64,6 @@ def main(page: ft.Page):
         expand=True
     )
 
-    # --- Contenedor del encabezado ---
     encabezado = ft.Container(
         content=ft.Row(
             controls=[
@@ -71,7 +78,6 @@ def main(page: ft.Page):
         height=100
     )
 
-    #---- Banner principal ----
     banner = ft.Container(
         height=200, 
         content=ft.Image(
@@ -81,8 +87,7 @@ def main(page: ft.Page):
         ),clip_behavior=ft.ClipBehavior
     )
 
-    # --- Muestra la página principal al iniciar ---
     mostrar_inicio()
 
-# Inicializa la app de Flet
+
 ft.app(target=main, assets_dir="assets")
